@@ -1,0 +1,124 @@
+:root{
+    --rowNum: 12;
+    --colNum: 12;
+}
+
+.debug {
+    display: inline;
+}
+
+body {
+    background-color: rgb(8, 18, 26);
+    font-size: large;
+    color: rgb(138, 195, 196);
+}
+table {
+    border-spacing: 0;
+    height: 750px;
+    width: 750px;
+}
+
+.grey {
+    background-color: rgb(160, 156, 156);
+    width: calc(100%/var(--colNum));
+    height: calc(100%/var(--rowNum));
+}
+.white {
+    background-color: rgb(175, 174, 174);
+    width: calc(100%/var(--colNum));
+    height: calc(100%/var(--rowNum));
+}
+
+.box {
+    position: relative;
+    display: inline-block;
+    left: 25%;
+}
+
+.apple {
+    /* background-color: rgb(208, 31, 37); */
+    background-image: url(apple.png);
+    background-size: 100% 100%;
+    width: calc(100%/var(--colNum));
+    height: calc(100%/var(--rowNum));
+    overflow: hidden;
+}
+
+.snake-body {
+    background-color: rgb(29, 143, 58);
+    width: calc(100%/var(--colNum));
+    height: calc(100%/var(--rowNum));
+}
+
+.snake-face-top {
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    border: red;
+    position: relative;
+    display: inline;
+    float: left;
+    height: 16%;
+    width: 16%;
+    margin-left: 17%;
+    margin-right: 17%;
+    margin-bottom: 60%;
+}
+
+.snake-face-right {
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    border: red;
+    position: relative;
+    display: block;
+    height: 16%;
+    width: 16%;
+    margin-bottom: 30%;
+    margin-top: 30%;
+    margin-left: 72%;
+}
+
+.snake-face-bottom {
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    border: red;
+    position: relative;
+    display: inline;
+    float: left;
+    height: 16%;
+    width: 16%;
+    margin-left: 17%;
+    margin-right: 17%;
+    margin-top: 60%;
+}
+
+.snake-face-left {
+    background-color: rgb(0, 0, 0);
+    border-radius: 50%;
+    border: red;
+    position: relative;
+    display: block;
+    height: 16%;
+    width: 16%;
+    margin-bottom: 30%;
+    margin-top: 30%;
+    margin-left: 12%;
+}
+
+#play {
+    position: absolute;
+    display: inline;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-20px) translateY(-10px);
+    box-shadow: 0px 0px 230px 230px rgba(231, 34, 34, 0.15),
+                0px 0px 60px 40px rgba(126, 97, 1, 0.178);
+    z-index: 1;
+}
+
+#score {
+    display: inline;
+}
+
+#highscore {
+    display: inline;
+}
