@@ -73,8 +73,8 @@ function resetGame(snakeHead){
     for(let i=snakeBody.length-1; i>0; i--){
         document.getElementById(snakeBody[i]).classList.remove('snake-body');
     }
-    currentRow = initialRow;
-    currentCol = initialCol;
+    currentRow = initialRow%rowNum;
+    currentCol = initialCol%colNum;
     snakeBody = initialSnakeBody.slice();
     freeCellsSet = new Set(initialfreeCellsSet);
     for(let i=snakeBody.length-1; i>0; i--){
@@ -120,10 +120,11 @@ function moveSnake(){
     if(direction[0]!=(-1)*tmp[0] && direction[1]!=(-1)*tmp[1]){
         tmp = direction;
     }
-    currentCol += tmp[0];
-    currentRow += tmp[1];
-    
-    if(currentCol>=colNum || currentCol<0 || currentRow>=rowNum || currentRow<0 || document.getElementById('r'+currentRow+'-c'+currentCol).classList.contains('snake-body')){
+    currentCol += tmp[0]+colNum;
+    currentCol %= colNum;
+    currentRow += tmp[1]+rowNum;
+    currentRow %= rowNum;
+    if(document.getElementById('r'+currentRow+'-c'+currentCol).classList.contains('snake-body')){
         resetGame(snakeHead);
     }
     else if(document.getElementById('r'+currentRow+'-c'+currentCol).classList.contains('apple')){
