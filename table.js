@@ -1,5 +1,5 @@
-let rowNum = getComputedStyle(document.querySelector(':root')).getPropertyValue('--rowNum');
-let colNum = getComputedStyle(document.querySelector(':root')).getPropertyValue('--colNum');
+let rowNum = Number(getComputedStyle(document.querySelector(':root')).getPropertyValue('--rowNum'));
+let colNum = Number(getComputedStyle(document.querySelector(':root')).getPropertyValue('--colNum'));
 let initialRow = 4;
 let initialCol = 4;
 let initialApple = 'r'+4+'-c'+8;
