@@ -124,6 +124,7 @@ function moveSnake(){
     currentCol %= colNum;
     currentRow += tmp[1]+rowNum;
     currentRow %= rowNum;
+    console.log('r'+currentRow+'-c'+currentCol);
     if(document.getElementById('r'+currentRow+'-c'+currentCol).classList.contains('snake-body')){
         resetGame(snakeHead);
     }
