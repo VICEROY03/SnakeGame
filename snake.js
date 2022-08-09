@@ -1,30 +1,41 @@
 let currentRow, currentCol, currentApple, snakeBody, freeCellsSet;
 let direction = [1, 0];
 let tmp = direction;
-let timedFunc;
+let timedFunc, paused=0, started=0;
 
-window.addEventListener('keydown', function(event){
-    if(event.key==="Enter"){
-        document.getElementsByTagName("button")[0].focus();
+window.addEventListener('keydown', UIListener);
+document.getElementById("play").addEventListener('click', startGame);
+document.getElementById("resume").addEventListener('click', resumeGame);
+
+function UIListener(event){
+    if(event.key==="Enter"&& document.getElementById("play").style.display!="none"){
+        document.getElementById("play").click();
     }
-});
+    else if(event.key===" " && started){
+        if(paused && document.getElementById("resume").style.display!="none"){
+            document.getElementById("resume").click();
+        }
+        else{
+            clearInterval(timedFunc);
+            paused = 1;
+            window.removeEventListener('keydown', gameListener);
+            document.getElementById("resume").style.display="inline";
+        }
+    }
+}
 
-function myListener(event){
+function gameListener(event){
     if(event.key==="ArrowUp"){
         direction = [0,-1];
-        console.log("u");
     }
     else if(event.key==="ArrowDown"){
         direction = [0,1];
-        console.log("d");
     }
     else if(event.key==="ArrowLeft"){
         direction = [-1,0];
-        console.log("l");
     }
     else if(event.key==="ArrowRight"){
         direction = [1,0];
-        console.log("r");
     }
 }
 
@@ -36,43 +47,26 @@ function initializeVariables(){
     freeCellsSet = new Set(initialfreeCellsSet);
 }
 
+function resumeGame(){
+    document.getElementById("resume").style.display="none";
+    window.addEventListener('keydown', gameListener);
+    paused=0;
+    timedFunc = setInterval(moveSnake, 300);
+}
+
 function startGame() {
+    started = 1;
     document.getElementById("play").style.display="none";
-    window.addEventListener('keydown', myListener);
+    window.addEventListener('keydown', gameListener);
 
     initializeVariables();
     
     timedFunc = setInterval(moveSnake, 300);
-} 
-
-function setEyes(){
-    if(tmp[0]==1){
-        document.getElementById(snakeBody[0]).appendChild(eyeRight1);
-        document.getElementById(snakeBody[0]).appendChild(eyeRight2);
-    }
-    else if(tmp[0]==-1){
-        document.getElementById(snakeBody[0]).appendChild(eyeLeft1);
-        document.getElementById(snakeBody[0]).appendChild(eyeLeft2);
-    }
-    else if(tmp[1]==1){
-        document.getElementById(snakeBody[0]).appendChild(eyeBottom1);
-        document.getElementById(snakeBody[0]).appendChild(eyeBottom2);
-    }
-    else if(tmp[1]==-1){
-        document.getElementById(snakeBody[0]).appendChild(eyeTop1);
-        document.getElementById(snakeBody[0]).appendChild(eyeTop2);
-    }
-}
-
-function moveSnakeBody(){
-    let i = snakeBody.length-1;
-    document.getElementById(snakeBody[i]).classList.remove('snake-body');
-    for(i; i>0; i--){
-        snakeBody[i] = snakeBody[i-1];
-    }
 }
 
 function resetGame(snakeHead){
+    clearInterval(timedFunc);
+    started = 0;
     snakeHead.innerHTML="";
     snakeHead.classList.remove('snake-body');
     snakeBody[0] = 'r'+currentRow+'-c'+currentCol;
@@ -98,11 +92,10 @@ function resetGame(snakeHead){
     document.getElementById('score').innerHTML = 'Score: '+ score;
     document.getElementById('highscore').innerHTML = 'Highscore: '+ highScore;
 
-    window.removeEventListener('keydown', myListener);
+    window.removeEventListener('keydown', gameListener);
     document.getElementById("play").style.display="inline";
     direction = [1, 0];
     tmp = direction;
-    clearInterval(timedFunc);
 }
 
 function setApple(){
@@ -116,6 +109,33 @@ function setApple(){
             return;
         }
         i++;
+    }
+}
+
+function setEyes(){
+    if(tmp[0]==1){
+        document.getElementById(snakeBody[0]).appendChild(eyeRight1);
+        document.getElementById(snakeBody[0]).appendChild(eyeRight2);
+    }
+    else if(tmp[0]==-1){
+        document.getElementById(snakeBody[0]).appendChild(eyeLeft1);
+        document.getElementById(snakeBody[0]).appendChild(eyeLeft2);
+    }
+    else if(tmp[1]==1){
+        document.getElementById(snakeBody[0]).appendChild(eyeBottom1);
+        document.getElementById(snakeBody[0]).appendChild(eyeBottom2);
+    }
+    else if(tmp[1]==-1){
+        document.getElementById(snakeBody[0]).appendChild(eyeTop1);
+        document.getElementById(snakeBody[0]).appendChild(eyeTop2);
+    }
+}
+
+function moveSnakeBody(){
+    let i = snakeBody.length-1;
+    document.getElementById(snakeBody[i]).classList.remove('snake-body');
+    for(i; i>0; i--){
+        snakeBody[i] = snakeBody[i-1];
     }
 }
 
