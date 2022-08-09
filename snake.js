@@ -1,12 +1,7 @@
-
-let currentRow = initialRow;
-let currentCol = initialCol;
-let currentApple = initialApple;
-let snakeBody = initialSnakeBody.slice();
-var timedFunc;
+let currentRow, currentCol, currentApple, snakeBody, freeCellsSet;
 let direction = [1, 0];
-let tmp=direction;
-let freeCellsSet = new Set(initialfreeCellsSet);
+let tmp = direction;
+let timedFunc;
 
 window.addEventListener('keydown', function(event){
     if(event.key==="Enter"){
@@ -32,9 +27,20 @@ function myListener(event){
         console.log("r");
     }
 }
+
+function initializeVariables(){
+    currentRow = initialRow;
+    currentCol = initialCol;
+    currentApple = initialApple;
+    snakeBody = initialSnakeBody.slice();
+    freeCellsSet = new Set(initialfreeCellsSet);
+}
+
 function startGame() {
     document.getElementById("play").style.display="none";
     window.addEventListener('keydown', myListener);
+
+    initializeVariables();
     
     timedFunc = setInterval(moveSnake, 300);
 } 
@@ -76,7 +82,6 @@ function resetGame(snakeHead){
     currentRow = initialRow%rowNum;
     currentCol = initialCol%colNum;
     snakeBody = initialSnakeBody.slice();
-    freeCellsSet = new Set(initialfreeCellsSet);
     for(let i=snakeBody.length-1; i>0; i--){
         document.getElementById(snakeBody[i]).classList.add('snake-body');
     }

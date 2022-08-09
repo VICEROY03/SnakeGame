@@ -1,12 +1,9 @@
-let rowNum = Number(getComputedStyle(document.querySelector(':root')).getPropertyValue('--rowNum'));
-let colNum = Number(getComputedStyle(document.querySelector(':root')).getPropertyValue('--colNum'));
-let initialRow = 4;
-let initialCol = 4;
-let initialApple = 'r'+4+'-c'+8;
-let initialSnakeBody = ['r'+initialRow+'-c'+initialCol, 'r'+initialRow+'-c'+(initialCol-1), 'r'+initialRow+'-c'+(initialCol-2), 'r'+initialRow+'-c'+(initialCol-3)]
+const rowNum = Number(getComputedStyle(document.querySelector(':root')).getPropertyValue('--rowNum'));
+const colNum = Number(getComputedStyle(document.querySelector(':root')).getPropertyValue('--colNum'));
+const initialRow = 4, initialCol = 4, initialApple = 'r'+4+'-c'+8;
+const initialSnakeBody = ['r'+initialRow+'-c'+initialCol, 'r'+initialRow+'-c'+(initialCol-1), 'r'+initialRow+'-c'+(initialCol-2), 'r'+initialRow+'-c'+(initialCol-3)]
 let initialfreeCellsSet = new Set();
-let score = 0;
-let highScore = localStorage.getItem('highscore');
+let score = 0, highScore = localStorage.getItem('highscore');
 
 let eyeTop1 = document.createElement("div");
 eyeTop1.setAttribute('class', 'snake-face-top');
@@ -37,12 +34,10 @@ window.onload = function createTable(){
             let z = 'r'+r+'-c'+c;
             initialfreeCellsSet.add(z);
             y.setAttribute('id', z);
-            if((r+c)%2==0){
+            if((r+c)%2==0)
                 y.classList.add('white');
-            }
-            else{
+            else
                 y.classList.add('grey');
-            }
         }
     }
     for(i in initialSnakeBody){
